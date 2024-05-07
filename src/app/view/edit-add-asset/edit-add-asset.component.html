@@ -1,0 +1,60 @@
+<app-headnav/>
+<div class="container">
+  <form class="main" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="itemType" class="form-label">Item Type</label>
+      <select id="itemType" class="form-select" name="itemType" [(ngModel)]="asset.itemType">
+        <option *ngFor="let type of itemTypes" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" id="name" class="form-control" name="name" [(ngModel)]="asset.name">
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea id="description" class="form-control" name="description" [(ngModel)]="asset.description"></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="owner" class="form-label">Owner</label>
+      <input type="text" id="owner" class="form-control" name="owner" [(ngModel)]="asset.owner">
+    </div>
+    <div class="mb-3">
+      <label for="paymentType" class="form-label">Item Type</label>
+      <select id="paymentType" class="form-select" name="paymentType" [(ngModel)]="asset.paymentType">
+        <option *ngFor="let type of paymentType" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="price" class="form-label">Price</label>
+      <div class="input-group">
+        <input type="number" id="price" class="form-control" name="price" [(ngModel)]="asset.price">
+        <span class="input-group-text">€</span>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="rentalAsset" class="form-label">Rental Asset</label>
+      <input type="checkbox" id="rentalAsset" name="lendable" [(ngModel)]="asset.lendable">
+    </div>
+    <div class="mb-3">
+      <div class="row">
+        <div class="col">
+          <label for="borrowedAt" class="form-label">Borrowed At</label>
+          <ngb-datepicker id="borrowedAt" class="form-control" name="borrowedAt" [startDate]="asset.borrowedAt"
+                          [(ngModel)]="asset.borrowedAt" [disabled]="!asset.lendable"></ngb-datepicker>
+        </div>
+        <div class="col">
+          <label for="returnAt" class="form-label">Return At</label>
+          <ngb-datepicker id="returnAt" class="form-control" name="returnAt" [startDate]="asset.returnAt"
+                          [(ngModel)]="asset.returnAt" [disabled]="!asset.lendable"></ngb-datepicker>
+        </div>
+      </div>
+
+
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+    <button type="button" routerLink="/home" class="btn btn-primary">Cancel</button>
+  </form>
+</div>
+

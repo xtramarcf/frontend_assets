@@ -1,0 +1,94 @@
+<form class="main">
+  <div class="mb-3 row">
+    <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+    <div class="col-xs-3 col-sm-auto">
+      <input
+        id="table-complete-search"
+        type="text"
+        class="form-control"
+        name="searchTerm"
+        [(ngModel)]="service.searchTerm"
+      />
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <caption>Assets</caption>
+    <thead>
+    <tr>
+      <th scope="col" sortable="id" (sort)="onSort($event)">id</th>
+      <th scope="col" sortable="itemType" (sort)="onSort($event)">ItemType</th>
+      <th scope="col" sortable="name" (sort)="onSort($event)">Name</th>
+      <th scope="col" sortable="description" (sort)="onSort($event)">Description</th>
+      <th scope="col" sortable="owner" (sort)="onSort($event)">Owner</th>
+      <th scope="col" sortable="paymentType" (sort)="onSort($event)">PaymentType</th>
+      <th scope="col" sortable="price" (sort)="onSort($event)">Price [€]</th>
+      <th scope="col" sortable="borrowedAt" (sort)="onSort($event)">Borrowed At</th>
+      <th scope="col" sortable="returnAt" (sort)="onSort($event)">Return At</th>
+      <th scope="col">Documents</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (asset of assets$ | async; track asset.id) {
+        <tr>
+          <th scope="row">{{ asset.id }}</th>
+          <td>
+            <ngb-highlight [result]="asset.itemType" [term]="service.searchTerm"/>
+          </td>
+          <td>
+            <ngb-highlight [result]="asset.name" [term]="service.searchTerm"/>
+          </td>
+          <td>
+            <ngb-highlight [result]="asset.description" [term]="service.searchTerm"/>
+          </td>
+          <td>
+            <ngb-highlight [result]="asset.owner" [term]="service.searchTerm"/>
+          </td>
+          <td>
+            <ngb-highlight [result]="asset.paymentType" [term]="service.searchTerm"/>
+          </td>
+          <td>
+            <ngb-highlight [result]="asset.price | number" [term]="service.searchTerm"/>
+          </td>
+          <td>
+            <span *ngIf="asset.lendable">{{ this.service.formatNgbDate(this.asset.borrowedAt) }}</span>
+            <span *ngIf="!asset.lendable">-</span>
+          </td>
+          <td>
+            <span *ngIf="asset.lendable">{{ service.formatNgbDate(this.asset.returnAt) }}</span>
+            <span *ngIf="!asset.lendable">-</span>
+          </td>
+          <td>
+            <button type="button" class="btn btn-secondary"
+                    routerLink='/documents' [state]="asset">Docs
+            </button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-secondary"
+                    routerLink='/edit-add' [state]="asset">Edit
+            </button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-danger" (click)="service.deleteAsset(asset.id!)">Delete</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-between p-2">
+    <button type="button" routerLink='/edit-add' class="btn btn-primary rounded-circle">
+      <i class="bi bi-plus" style="font-size: 24px"></i>
+    </button>
+
+    <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
+    </ngb-pagination>
+
+    <select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">
+      <option [ngValue]="5">5 items per page</option>
+      <option [ngValue]="10">10 items per page</option>
+      <option [ngValue]="15">15 items per page</option>
+    </select>
+  </div>
+</form>

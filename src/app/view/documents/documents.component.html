@@ -1,0 +1,24 @@
+<app-headnav/>
+<div class="mb-3 main">
+  <label for="documentInput" class="form-label">Documents of {{ asset.name }}</label>
+  <input type="file" id="documentInput" class="form-control" accept="application/pdf" (change)="onFileSelected($event)">
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let document of asset.docs">
+      <td>{{ document.docName }}</td>
+      <td>
+        <button class="btn btn-primary" (click)="openDocument(document)">Open</button>
+        <button class="btn btn-danger" (click)="deleteDocument(document)">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-success" (click)="uploadDocuments()">Upload</button>
+  <button class="btn btn-primary" routerLink="/home">Cancel</button>
+</div>

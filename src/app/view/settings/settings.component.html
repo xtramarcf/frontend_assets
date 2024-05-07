@@ -1,0 +1,52 @@
+<app-headnav/>
+<div class="container">
+  <h2 class="mt-4 mb-3">Settings</h2>
+
+  <!-- Users Bereich -->
+  <div class="card mb-4">
+    <div class="card-header">
+      Users
+    </div>
+    <div class="card-body">
+      <!-- Übersicht über alle Benutzer -->
+      <table class="table table-striped">
+        <caption>Users</caption>
+        <thead>
+        <tr>
+          <th>Username</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Enabled</th>
+          <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (user of users$ | async; track user.userName) {
+            <tr>
+              <td>{{ user.userName }}</td>
+              <td>{{ user.firstName }}</td>
+              <td>{{ user.lastName }}</td>
+              <td>
+                <ng-container *ngIf="user.enabled; else enableButton">
+                  Active
+                </ng-container>
+                <ng-template #enableButton>
+                  <button class="btn btn-primary" (click)="enableUser(user.userName)">Enable</button>
+                </ng-template>
+              </td>
+              <td>
+                <button class="btn btn-danger" *ngIf="user.userName !== 'Admin'" (click)="deleteUser(user.userName)">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="4" style="text-align: center">No users found</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

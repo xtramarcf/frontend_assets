@@ -1,0 +1,11 @@
+.register-container {
+  max-width: 400px;
+  margin: 100px auto auto;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
