@@ -244,6 +244,7 @@ export class AssetService {
     this.http.delete<any>(`${environment.baseUrl}/asset/delete`, {params}).subscribe({
       next: () => {
         this.loadAssets()
+        this._search$.next();
       }
     })
   }

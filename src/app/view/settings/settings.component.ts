@@ -44,7 +44,7 @@ export class SettingsComponent implements OnInit {
    * Loading users.
    */
   loadUser(): any {
-    this.http.get<any>(`${environment.baseUrl}/users/get-all`).subscribe({
+    this.http.get<any>(`${environment.baseUrl}/iam/get-all-user`).subscribe({
       next: response => {
         this._users$.next(response)
       }
@@ -58,7 +58,7 @@ export class SettingsComponent implements OnInit {
    */
   enableUser(userName: string): any {
     const params = new HttpParams().set('userName', userName);
-    this.http.post<any>(`${environment.baseUrl}/users/enable`, {}, {params}).subscribe({
+    this.http.post<any>(`${environment.baseUrl}/iam/enable-user`, {}, {params}).subscribe({
       next: () => {
         this.loadUser()
       }
@@ -73,7 +73,7 @@ export class SettingsComponent implements OnInit {
    */
   deleteUser(userName: string): any {
     const params = new HttpParams().set('userName', userName);
-    this.http.delete<any>(`${environment.baseUrl}/users/delete`, {params}).subscribe({
+    this.http.delete<any>(`${environment.baseUrl}/iam/delete-user`, {params}).subscribe({
       next: () => {
         this.loadUser()
       }

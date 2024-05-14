@@ -44,7 +44,7 @@ export class AuthService {
    * Logs out the user by clearing the localStorage, resetting the role and navigating to log in.
    */
   logout(): void {
-    this.http.get<any>(`${this.baseUrl}/auth/logout`)
+    this.http.get<any>(`${this.baseUrl}/iam/logout`)
     this.setRole(null);
     if (typeof localStorage !== 'undefined') {
       localStorage?.removeItem('access_token')
@@ -69,7 +69,7 @@ export class AuthService {
    * @param password
    */
   authenticate(userName: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/auth/authenticate`, {userName, password})
+    return this.http.post<any>(`${this.baseUrl}/iam/login`, {userName, password})
   }
 
   /**
@@ -77,7 +77,7 @@ export class AuthService {
    * @param registerRequest contains the user credentials.
    */
   register(registerRequest: RegisterRequest): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/register`, registerRequest)
+    return this.http.post<any>(`${this.baseUrl}/iam/register`, registerRequest)
   }
 
 

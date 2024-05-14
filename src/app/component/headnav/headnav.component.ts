@@ -19,6 +19,7 @@ export class HeadnavComponent implements OnInit {
    * Executes on initialization and subscribes for getting the role.
    */
   ngOnInit(): void {
+    this.authService.extractAndSetRole()
     this.authService.getRole().subscribe(role => {
       this.role = role;
     })
