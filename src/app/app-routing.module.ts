@@ -7,6 +7,9 @@ import {EditAddAssetComponent} from "./view/edit-add-asset/edit-add-asset.compon
 import {DocumentsComponent} from "./view/documents/documents.component";
 import {AssetsComponent} from "./view/assets/assets.component";
 
+/**
+ * Routes for the views.
+ */
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'home', component: AssetsComponent},

@@ -1,7 +1,10 @@
+<!--Navbar-->
 <app-headnav/>
 <div class="container">
+  <!--Form with assets data. Will be filled with the data of the selected asset or the default asset.-->
   <form class="main" (ngSubmit)="onSubmit()">
     <div class="mb-3">
+      <!--Input select with options for the item type-->
       <label for="itemType" class="form-label">Item Type</label>
       <select id="itemType" class="form-select" name="itemType" [(ngModel)]="asset.itemType">
         <option *ngFor="let type of itemTypes" [value]="type">{{ type }}</option>
@@ -19,6 +22,7 @@
       <label for="owner" class="form-label">Owner</label>
       <input type="text" id="owner" class="form-control" name="owner" [(ngModel)]="asset.owner">
     </div>
+    <!--Input select with options for the payment type-->
     <div class="mb-3">
       <label for="paymentType" class="form-label">Item Type</label>
       <select id="paymentType" class="form-select" name="paymentType" [(ngModel)]="asset.paymentType">
@@ -32,7 +36,7 @@
         <span class="input-group-text">€</span>
       </div>
     </div>
-
+    <!--If not selected, the borrowedAt and returnAt Datepicker are disabled.-->
     <div class="mb-3">
       <label for="rentalAsset" class="form-label">Rental Asset</label>
       <input type="checkbox" id="rentalAsset" name="lendable" [(ngModel)]="asset.lendable">
@@ -50,10 +54,10 @@
                           [(ngModel)]="asset.returnAt" [disabled]="!asset.lendable"></ngb-datepicker>
         </div>
       </div>
-
-
     </div>
+    <!--Submits the form and saves the asset.-->
     <button type="submit" class="btn btn-success">Save</button>
+    <!--Cancels the operation and returns to main view.-->
     <button type="button" routerLink="/home" class="btn btn-primary">Cancel</button>
   </form>
 </div>

@@ -1,5 +1,6 @@
 <div class="container register-container">
   <h2 class="text-center mb-4">Register</h2>
+  <!--Form for user credentials-->
   <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
     <div class="form-group">
       <label for="firstName">First Name:</label>
@@ -22,8 +23,10 @@
       <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password"
              formControlName="confirmPassword">
     </div>
+    <!--Submits the form.-->
     <button type="submit" class="btn btn-primary btn-block">Register</button>
   </form>
+  <!--Feedback for user after submitting.-->
   <app-feedback [message]="message" [messageType]="messageType"></app-feedback>
   <div class="mt-3 text-center">
     <a routerLink="/login">Login</a>

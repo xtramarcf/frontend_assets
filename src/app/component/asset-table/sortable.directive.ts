@@ -10,6 +10,9 @@ export interface SortEvent {
   direction: SortDirection;
 }
 
+/**
+ * Directive to handle sortable table headers.
+ */
 @Directive({
   selector: 'th[sortable]',
   standalone: true,
@@ -24,6 +27,9 @@ export class NgbdSortableHeader {
   @Input() direction: SortDirection = '';
   @Output() sort = new EventEmitter<SortEvent>();
 
+  /**
+   * Rotates the sort direction and emits the sort event.
+   */
   rotate() {
     this.direction = rotate[this.direction];
     this.sort.emit({column: this.sortable, direction: this.direction});

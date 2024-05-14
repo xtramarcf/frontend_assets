@@ -15,12 +15,18 @@ export class HeadnavComponent implements OnInit {
 
   role: string | null = null;
 
+  /**
+   * Executes on initialization and subscribes for getting the role.
+   */
   ngOnInit(): void {
     this.authService.getRole().subscribe(role => {
       this.role = role;
     })
   }
 
+  /**
+   * Logs out the user.
+   */
   logout(): void {
     this.authService.logout();
   }

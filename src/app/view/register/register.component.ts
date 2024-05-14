@@ -2,7 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../service/auth/auth.service";
 import {FormBuilder, Validators} from "@angular/forms";
 
-
+/**
+ * Definition of user register credentials.
+ */
 export interface RegisterRequest {
   userName: string,
   firstName: string,
@@ -17,6 +19,9 @@ export interface RegisterRequest {
 })
 export class RegisterComponent implements OnInit {
 
+  /**
+   * Form with validation for registration request.
+   */
   registerForm = this.fb.group({
       firstName: ["", Validators.required],
       lastName: ["", Validators.required],
@@ -38,6 +43,9 @@ export class RegisterComponent implements OnInit {
   ) {
   }
 
+  /**
+   * Sets the role on init.
+   */
   ngOnInit(): void {
     this.authService.getRole().subscribe(role => {
         this
@@ -46,6 +54,9 @@ export class RegisterComponent implements OnInit {
     )
   }
 
+  /**
+   * Validates the user request.
+   */
   validate(): boolean {
     this.messageType = "warning"
 
@@ -71,7 +82,9 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-
+  /**
+   * Registers the user.
+   */
   registerUser() {
 
     if (!this.validate()) {

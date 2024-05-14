@@ -2,6 +2,7 @@
   <div class="mb-3 row">
     <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
     <div class="col-xs-3 col-sm-auto">
+      <!--Input field for full text search for assets.-->
       <input
         id="table-complete-search"
         type="text"
@@ -15,6 +16,7 @@
   <table class="table table-striped">
     <caption>Assets</caption>
     <thead>
+    <!--Header of the table with sort functions included.-->
     <tr>
       <th scope="col" sortable="id" (sort)="onSort($event)">id</th>
       <th scope="col" sortable="itemType" (sort)="onSort($event)">ItemType</th>
@@ -30,6 +32,7 @@
       <th scope="col">Delete</th>
     </tr>
     </thead>
+    <!--List of all assets with its data.-->
     <tbody>
       @for (asset of assets$ | async; track asset.id) {
         <tr>
@@ -60,16 +63,19 @@
             <span *ngIf="asset.lendable">{{ service.formatNgbDate(this.asset.returnAt) }}</span>
             <span *ngIf="!asset.lendable">-</span>
           </td>
+          <!--Navigates to the document view of the selected asset.-->
           <td>
             <button type="button" class="btn btn-secondary"
                     routerLink='/documents' [state]="asset">Docs
             </button>
           </td>
+          <!--Navigates to the edit/add asset view of the selected asset.-->
           <td>
             <button type="button" class="btn btn-secondary"
                     routerLink='/edit-add' [state]="asset">Edit
             </button>
           </td>
+          <!--Deletes the selected asset.-->
           <td>
             <button type="button" class="btn btn-danger" (click)="service.deleteAsset(asset.id!)">Delete</button>
           </td>
@@ -78,17 +84,20 @@
     </tbody>
   </table>
   <div class="d-flex justify-content-between p-2">
+    <!--Navigates to the edit/add view for adding a new asset.-->
     <button type="button" routerLink='/edit-add' class="btn btn-primary rounded-circle">
       <i class="bi bi-plus" style="font-size: 24px"></i>
     </button>
 
+    <!--Pagination is displayed here-->
     <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
     </ngb-pagination>
 
+    <!--Number of displayed items per page can be set here.-->
     <select class="form-select" style="width: auto" name="pageSize" [(ngModel)]="service.pageSize">
-      <option [ngValue]="5">5 items per page</option>
-      <option [ngValue]="10">10 items per page</option>
-      <option [ngValue]="15">15 items per page</option>
+      <option [ngValue]="5">5 assets per page</option>
+      <option [ngValue]="10">10 assets per page</option>
+      <option [ngValue]="15">15 assets per page</option>
     </select>
   </div>
 </form>

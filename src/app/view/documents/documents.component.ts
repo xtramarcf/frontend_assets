@@ -3,6 +3,9 @@ import {defaultAsset, Document} from "../../component/asset-table/asset";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../utility/environment";
 
+/**
+ * Component for handling the documents of assets.
+ */
 @Component({
   selector: 'app-documents',
   templateUrl: './documents.component.html',
@@ -19,14 +22,18 @@ export class DocumentsComponent implements OnInit {
   ) {
   }
 
-
+  /**
+   * On init sets the selected asset to the asset var.
+   */
   ngOnInit() {
     if (history.state.id !== undefined) {
       this.asset = history.state
     }
   }
 
-
+  /**
+   * Loads the documents by asset id.
+   */
   loadDocuments() {
 
     const params = new HttpParams()
@@ -39,12 +46,18 @@ export class DocumentsComponent implements OnInit {
     })
   }
 
-
+  /**
+   * Sets the selected file to the file var.
+   * @param event includes the selected file.
+   */
   onFileSelected(event: any) {
     this.file = event.target.files[0];
   }
 
 
+  /**
+   * Uploads the selected file.
+   */
   uploadDocuments() {
 
     if (this.file === null) return
@@ -60,21 +73,27 @@ export class DocumentsComponent implements OnInit {
   }
 
 
+  /**
+   * Opens a document in a new browser tab. Revokes the built url after using.
+   * @param doc the selected document.
+   */
   openDocument(doc: Document) {
 
-    const blob = new Blob([this.base64ToUint8Array(doc.content)], {type: 'application/pdf'}); // Ändere den MIME-Typ entsprechend dem Dateityp
+    const blob = new Blob([this.base64ToUint8Array(doc.content)], {type: 'application/pdf'});
     const url = window.URL.createObjectURL(blob);
 
-    // Öffne die Datei in einem neuen Tab
     window.open(url, '_blank');
 
-    // Optional: Revokiere die URL, wenn sie nicht mehr benötigt wird, um Speicherlecks zu vermeiden
     setTimeout(() => {
       window.URL.revokeObjectURL(url);
     }, 1000);
   }
 
 
+  /**
+   * Converting file content from base64String to Uint8Array. This is needed for displaying the file in the browser.
+   * @param base64String content of the file.
+   */
   base64ToUint8Array(base64String: string): Uint8Array {
     const binaryString = atob(base64String);
     const byteArray = new Uint8Array(binaryString.length);
@@ -85,8 +104,11 @@ export class DocumentsComponent implements OnInit {
   }
 
 
+  /**
+   * Deletes a document.
+   * @param doc the document, which will be deleted.
+   */
   deleteDocument(doc: Document) {
-
     const params = new HttpParams()
       .set('assetId', this.asset.id!)
       .set('docId', doc.id)

@@ -1,5 +1,6 @@
 <div class="container login-container">
   <h2 class="text-center mb-4">Login</h2>
+  <!--Form for login user credentials.-->
   <form (ngSubmit)="loginUser()">
     <div class="form-group">
       <label for="userName">Username:</label>
@@ -11,8 +12,10 @@
       <input type="password" class="form-control" id="password" placeholder="Enter password" [(ngModel)]="password"
              name="password">
     </div>
+    <!--Submit button for the login form-->
     <button type="submit" class="btn btn-primary btn-block">Login</button>
   </form>
+  <!--Feedback, if user can not login.-->
   <app-feedback [message]="message" [messageType]="messageType"></app-feedback>
   <div class="mt-3 text-center">
     <a routerLink="/register">Register</a>

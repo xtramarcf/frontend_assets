@@ -1,7 +1,10 @@
+<!--Navbar-->
 <app-headnav/>
 <div class="mb-3 main">
   <label for="documentInput" class="form-label">Documents of {{ asset.name }}</label>
+  <!--File can be selected here. Only pdf will be accepted.-->
   <input type="file" id="documentInput" class="form-control" accept="application/pdf" (change)="onFileSelected($event)">
+  <!--Table of all documents of the selected asset.-->
   <table class="table">
     <thead>
     <tr>
@@ -13,12 +16,16 @@
     <tr *ngFor="let document of asset.docs">
       <td>{{ document.docName }}</td>
       <td>
+        <!--Opens document in a new browser tab.-->
         <button class="btn btn-primary" (click)="openDocument(document)">Open</button>
+        <!--Deletes the document.-->
         <button class="btn btn-danger" (click)="deleteDocument(document)">Delete</button>
       </td>
     </tr>
     </tbody>
   </table>
+  <!--Uploads a file, if it was selected.-->
   <button class="btn btn-success" (click)="uploadDocuments()">Upload</button>
+  <!--Returns to the main screen.-->
   <button class="btn btn-primary" routerLink="/home">Cancel</button>
 </div>

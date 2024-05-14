@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {Asset, defaultAsset} from "../../component/asset-table/asset";
+import {defaultAsset} from "../../component/asset-table/asset";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../utility/environment";
-import {NgbDate} from "@ng-bootstrap/ng-bootstrap";
 
+/**
+ * Component for editing or adding assets.
+ */
 @Component({
   selector: 'app-edit-add-asset',
   templateUrl: './edit-add-asset.component.html',
@@ -17,14 +19,15 @@ export class EditAddAssetComponent implements OnInit {
   itemTypes = ['CONTRACT', 'DEVICE', 'FURNISHINGS', 'LICENSE', 'VEHICLE'];
   paymentType = ['MONTHLY', 'YEARLY', 'PURCHASED', 'FREE'];
 
-  private baseUrl = environment.baseUrl;
-
   constructor(
     private http: HttpClient,
     private router: Router
   ) {
   }
 
+  /**
+   * On initialization sets the selected asset.
+   */
   ngOnInit() {
     if (history.state.id !== undefined) {
       this.asset = history.state
@@ -34,10 +37,11 @@ export class EditAddAssetComponent implements OnInit {
 
   }
 
+  /**
+   * On submit the asset will be saved and the user will be navigated to the main view.
+   */
   onSubmit() {
-
-    console.log(this.asset)
-    this.http.post(`${this.baseUrl}/asset/save`, this.asset).subscribe({
+    this.http.post(`${environment.baseUrl}/asset/save`, this.asset).subscribe({
       next: () => {
         this.router.navigate(["/home"])
       }

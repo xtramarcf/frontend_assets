@@ -1,5 +1,8 @@
 import {Component, Input} from '@angular/core';
 
+/**
+ * Component for displaying messages with different designs.
+ */
 @Component({
   selector: 'app-feedback',
   template: `

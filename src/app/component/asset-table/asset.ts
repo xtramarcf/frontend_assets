@@ -1,5 +1,8 @@
 import {NgbDate} from "@ng-bootstrap/ng-bootstrap";
 
+/**
+ * Definition for assets.
+ */
 export interface Asset {
   id?: number | null;
   itemType: string;
@@ -14,6 +17,9 @@ export interface Asset {
   docs: Document[] | null;
 }
 
+/**
+ * Default asset instance.
+ */
 export const defaultAsset: Asset = {
   id: null,
   itemType: 'DEVICE',
@@ -28,6 +34,9 @@ export const defaultAsset: Asset = {
   docs: null
 };
 
+/**
+ * Definition for documents.
+ */
 export interface Document {
   id: number;
   docName: string;

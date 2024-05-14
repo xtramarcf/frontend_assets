@@ -1,14 +1,13 @@
+<!--Navbar-->
 <app-headnav/>
 <div class="container">
   <h2 class="mt-4 mb-3">Settings</h2>
-
-  <!-- Users Bereich -->
   <div class="card mb-4">
     <div class="card-header">
       Users
     </div>
+    <!--Table with all users-->
     <div class="card-body">
-      <!-- Übersicht über alle Benutzer -->
       <table class="table table-striped">
         <caption>Users</caption>
         <thead>
@@ -26,6 +25,7 @@
               <td>{{ user.userName }}</td>
               <td>{{ user.firstName }}</td>
               <td>{{ user.lastName }}</td>
+              <!--Button for enabling users. Is only displayed, if the user is not enabled yet.-->
               <td>
                 <ng-container *ngIf="user.enabled; else enableButton">
                   Active
@@ -34,12 +34,14 @@
                   <button class="btn btn-primary" (click)="enableUser(user.userName)">Enable</button>
                 </ng-template>
               </td>
+              <!--Button for deleting users. Does not show a button for deleting the Admin-->
               <td>
                 <button class="btn btn-danger" *ngIf="user.userName !== 'Admin'" (click)="deleteUser(user.userName)">
                   Delete
                 </button>
               </td>
             </tr>
+            <!--Is displayed, if no user is found. Should not appear, because the admin user should always exist.-->
           } @empty {
             <tr>
               <td colspan="4" style="text-align: center">No users found</td>
