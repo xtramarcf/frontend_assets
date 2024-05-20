@@ -3,5 +3,5 @@
  */
 export const environment = {
   production: false,
-  baseUrl: 'http://backend:30100',
+  baseUrl: 'http://localhost:8080',
 }
