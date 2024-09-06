@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0ji8xxb" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.8.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.1.0">
+  <bpmn:collaboration id="Collaboration_1iz8oh2">
+    <bpmn:participant id="Participant_0jqikcs" name="Wareneingang" processRef="goods-in-process" />
+  </bpmn:collaboration>
+  <bpmn:process id="goods-in-process" name="Wareneingang" isExecutable="true">
+    <bpmn:documentation>In der Ökonomie sind Güter Gegenstände, die menschliche Bedürfnisse befriedigen und einen Nutzen bieten, beispielsweise für einen Verbraucher, der ein befriedigendes Produkt kauft. Üblicherweise wird zwischen übertragbaren Waren und nicht übertragbaren Dienstleistungen unterschieden.</bpmn:documentation>
+    <bpmn:extensionElements>
+      <zeebe:userTaskForm id="UserTaskForm_08q85b7">[{
+        "fieldGroupClassName": "display-flex field-with-margins",
+        "fieldGroup": [{
+                "className": "flex-3",
+                "fieldGroup": [{
+                        "key": "documentType",
+                        "type": "select",
+                        "defaultValue": "00a1dbdc-b100-11ed-afa1-0242ac120002",
+                        "props": {
+                            "label": "Dokument Typ",
+                            "required": true,
+                            "disabled": true,
+                            "options": [{
+                                    "label": "Retouren",
+                                    "value": "00a1dbdc-b100-11ed-afa1-0242ac120002"
+                                }, {
+                                    "label": "Wareneingang",
+                                    "value": "00a1dbdc-b100-11ed-afa1-0242ac120003"
+                                }, {
+                                    "label": "Inbound delivery",
+                                    "value": "34746472-6a96-4ac2-badc-ca8df2f2d9b9"
+                                }
+                            ]
+                        }
+                    }, {
+                        "key": "documentDate",
+                        "type": "datepicker",
+                        "defaultValue": "",
+                        "props": {
+                            "label": "Belegdatum",
+                            "required": true
+                        }
+                    }, {
+                        "key": "recognitionStatus",
+                        "type": "textarea",
+                        "defaultValue": "",
+                        "props": {
+                            "label": "Texterkennungsstatus",
+                            "required": false,
+                            "disabled": true
+                        }
+                    }, {
+                        "key": "shortDescription",
+                        "type": "textarea",
+                        "defaultValue": "",
+                        "props": {
+                            "label": "Kurzbeschreibung",
+                            "required": false
+                        }
+                    }, {
+                        "key": "inclComplaint",
+                        "type": "checkbox",
+                        "defaultValue": "",
+                        "props": {
+                            "label": "Inkl. Reklamation",
+                            "required": false
+                        }
+                    }, {
+						"fieldGroupClassName": "fields-full-width",
+						"fieldGroup": [{
+								"key": "deliveryNumber",
+								"type": "input",
+								"className": "field-with-attached-item",
+								"props": {
+									"label": "Anliefernummer",
+									"required": true
+								}
+							}, {
+								"key": "requestDeliveryNumber",
+								"type": "formly-sap-delivery-number-request-button",
+								"className": "field-button",
+								"props": {
+									"text": "SAP",
+									"required": false
+								}
+							}
+						]
+					}, {
+						"fieldGroupClassName": "fields-full-width",
+						"fieldGroup": [{
+								"key": "orderNumber",
+								"type": "input",
+								"className": "field-with-attached-item",
+								"props": {
+									"label": "Bestellnummer",
+									"required": true
+								}
+							}, {
+								"key": "requestOrderNumber",
+								"type": "formly-sap-delivery-number-request-button",
+								"className": "field-button",
+								"props": {
+									"text": "SAP",
+									"required": false
+								}
+							}
+						]
+					}, {
+						"key": "relevantDeliveryNumbers",
+                        "type": "delivery-number-picker",
+                        "defaultValue": "",
+                        "props": {
+                            "label": "Relevante Anliefernummern",
+                            "required": false,
+							"values": []
+                        }
+					}, {
+                        "key": "supplierNumber",
+                        "type": "select",
+                        "defaultValue": "",
+                        "props": {
+                            "label": "Lieferantennummer",
+                            "required": true,
+                            "multiple": false,
+                            "options": "${{com.arvato.docuflow.engine.service.process.goodsin.GoodsInSupplierService}}"
+                        }
+                    }, {
+						"key": "stock",
+                        "type": "radio",
+						"className": "radio-button-row",
+                        "defaultValue": "",
+                        "props": {
+                            "label": "Lager",
+                            "required": true,
+							"options": [
+							  { "value": "009", "label": "009" },
+							  { "value": "010", "label": "010" }
+							]
+                        }
+					}
+                ]
+            }, {
+                "className": "flex-1"
+            }, {
+                "className": "flex-8",
+                "fieldGroup": [{
+                        "key": "docViewer",
+                        "type": "documentViewer"
+                    }, {
+                        "fieldGroupClassName": "flex-reverse",
+                        "fieldGroup": [{
+                                "key": "closeButton",
+                                "type": "formly-button",
+                                "defaultValue": "close",
+                                "className": "button-with-margins",
+                                "props": {
+                                    "text": "SCHLIEßEN",
+                                    "color": "accent",
+                                    "validated": true,
+                                    "onClick": "this.ts.submit(this);"
+                                }
+                            }, {
+                                "key": "cancelButton",
+                                "type": "formly-button",
+                                "className": "button-with-margins",
+                                "props": {
+                                    "text": "ABBRECHEN",
+                                    "color": "primary",
+                                    "validated": false,
+                                    "onClick": "this.ts.cancel();"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
+</zeebe:userTaskForm>
+    </bpmn:extensionElements>
+    <bpmn:laneSet id="LaneSet_1br4j4t">
+      <bpmn:lane id="classifier" name="Klassifizierer">
+        <bpmn:extensionElements />
+        <bpmn:flowNodeRef>classification_task</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="system" name="System">
+        <bpmn:flowNodeRef>start_document_entry_process_task</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>use_ocr_gateway</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>start_event</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ocr_processing_task</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>send_email_task</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>join_gateway</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>end_event</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:callActivity id="start_document_entry_process_task" name="Starte Dokumenteingabeprozess">
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="e2db670c-fd6c-4763-a823-928a5905e96f" propagateAllChildVariables="false" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=documentType" target="documentType" />
+          <zeebe:input source="=documentDate" target="documentDate" />
+          <zeebe:input source="=documentNumber" target="documentNumber" />
+          <zeebe:input source="=tenant" target="tenant" />
+          <zeebe:output source="=tenant" target="tenant" />
+          <zeebe:output source="=documentType" target="documentType" />
+          <zeebe:output source="=documentDate" target="documentDate" />
+          <zeebe:output source="=documentNumber" target="documentNumber" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>use_ocr_gateway-start_document_entry_process_task</bpmn:incoming>
+      <bpmn:outgoing>start_document_entry_process_task-classification_task</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:exclusiveGateway id="use_ocr_gateway" name="use OCR?">
+      <bpmn:incoming>start_event-use_ocr_gateway</bpmn:incoming>
+      <bpmn:outgoing>use_ocr_gateway-start_document_entry_process_task</bpmn:outgoing>
+      <bpmn:outgoing>use_ocr_gateway-ocr_processing_task</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:startEvent id="start_event" name="Startereignis">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:output target="documentType" />
+          <zeebe:output source="" target="documentDate" />
+          <zeebe:output target="shortDescription" />
+          <zeebe:output source="" target="doOcr" />
+          <zeebe:output target="supplierNumber" />
+          <zeebe:output source="" target="inclComplaint" />
+          <zeebe:output source="" target="orderNumber" />
+          <zeebe:output source="" target="deliveryNumber" />
+          <zeebe:output source="" target="relevantDeliveryNumbers" />
+          <zeebe:output source="" target="stock" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>start_event-use_ocr_gateway</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="ocr_processing_task" name="OCR Verarbeitung">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="com.arvato.docuflow.engine.service.process.goodsin.GoodsInOcrProcessingTask" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=documentType" target="documentType" />
+          <zeebe:input source="=documentDate" target="documentDate" />
+          <zeebe:input source="=shortDescription" target="shortDescription" />
+          <zeebe:input source="=documentNumber" target="documentNumber" />
+          <zeebe:input source="=entryDate" target="entryDate" />
+          <zeebe:output source="=ocrBatchId" target="ocrBatchId" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>use_ocr_gateway-ocr_processing_task</bpmn:incoming>
+      <bpmn:outgoing>ocr_processing_task-join_gateway</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="send_email_task" name="Sende E-mail an Lieferant">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="com.arvato.docuflow.engine.service.process.goodsin.GoodsInSendSupplierEmailTask" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=orderNumber" target="orderNumber" />
+          <zeebe:input source="=supplierNumber" target="supplierNumber" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>classification_task-send_email_task</bpmn:incoming>
+      <bpmn:outgoing>send_email_task-join_gateway</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="classification_task" name="Klassifizierung">
+      <bpmn:extensionElements>
+        <zeebe:assignmentDefinition candidateGroups="classifier" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=documentType" target="documentType" />
+          <zeebe:input source="=documentDate" target="documentDate" />
+          <zeebe:input source="=shortDescription" target="shortDescription" />
+          <zeebe:input source="=supplierNumber" target="supplierNumber" />
+          <zeebe:input source="=inclComplaint" target="inclComplaint" />
+          <zeebe:input source="=orderNumber" target="orderNumber" />
+          <zeebe:input source="=deliveryNumber" target="deliveryNumber" />
+          <zeebe:input source="=relevantDeliveryNumbers" target="relevantDeliveryNumbers" />
+          <zeebe:input source="=stock" target="stock" />
+          <zeebe:output source="=documentDate" target="documentDate" />
+          <zeebe:output source="=shortDescription" target="shortDescription" />
+          <zeebe:output source="=supplierNumber" target="supplierNumber" />
+          <zeebe:output source="=inclComplaint" target="inclComplaint" />
+          <zeebe:output source="=orderNumber" target="orderNumber" />
+          <zeebe:output source="=deliveryNumber" target="deliveryNumber" />
+          <zeebe:output source="=relevantDeliveryNumbers" target="relevantDeliveryNumbers" />
+          <zeebe:output source="=stock" target="stock" />
+        </zeebe:ioMapping>
+        <zeebe:properties>
+          <zeebe:property name="displayName" value="&#39;Klassifizierung&#39;+{#tenant != null ? &#39; - &#39;+#tenant : &#39;&#39;}+{#orderNumber != null ? &#39; - &#39;+#orderNumber : &#39;&#39;}+{#documentDate != null ? &#39; - &#39;+#documentDate : &#39;&#39;}" />
+        </zeebe:properties>
+        <zeebe:formDefinition formKey="camunda-forms:bpmn:UserTaskForm_08q85b7" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>start_document_entry_process_task-classification_task</bpmn:incoming>
+      <bpmn:outgoing>classification_task-send_email_task</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="join_gateway">
+      <bpmn:incoming>ocr_processing_task-join_gateway</bpmn:incoming>
+      <bpmn:incoming>send_email_task-join_gateway</bpmn:incoming>
+      <bpmn:outgoing>join_gateway-end_event</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="end_event" name="Endereignis">
+      <bpmn:incoming>join_gateway-end_event</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="use_ocr_gateway-start_document_entry_process_task" name="no" sourceRef="use_ocr_gateway" targetRef="start_document_entry_process_task">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=#doOcr == false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="start_document_entry_process_task-classification_task" sourceRef="start_document_entry_process_task" targetRef="classification_task" />
+    <bpmn:sequenceFlow id="start_event-use_ocr_gateway" sourceRef="start_event" targetRef="use_ocr_gateway" />
+    <bpmn:sequenceFlow id="use_ocr_gateway-ocr_processing_task" name="yes" sourceRef="use_ocr_gateway" targetRef="ocr_processing_task">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=#doOcr == true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="ocr_processing_task-join_gateway" sourceRef="ocr_processing_task" targetRef="join_gateway" />
+    <bpmn:sequenceFlow id="classification_task-send_email_task" sourceRef="classification_task" targetRef="send_email_task" />
+    <bpmn:sequenceFlow id="send_email_task-join_gateway" sourceRef="send_email_task" targetRef="join_gateway" />
+    <bpmn:sequenceFlow id="join_gateway-end_event" sourceRef="join_gateway" targetRef="end_event" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1iz8oh2">
+      <bpmndi:BPMNShape id="Participant_0jqikcs_di" bpmnElement="Participant_0jqikcs" isHorizontal="true">
+        <dc:Bounds x="160" y="50" width="1459" height="510" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_159104y_di" bpmnElement="system" isHorizontal="true">
+        <dc:Bounds x="190" y="50" width="1429" height="310" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_072wll2_di" bpmnElement="classifier" isHorizontal="true">
+        <dc:Bounds x="190" y="360" width="1429" height="200" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1oooj3z_di" bpmnElement="start_document_entry_process_task">
+        <dc:Bounds x="460" y="188" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0ffae7a_di" bpmnElement="use_ocr_gateway" isMarkerVisible="true">
+        <dc:Bounds x="315" y="203" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="316" y="260" width="52" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_13t608g" bpmnElement="start_event">
+        <dc:Bounds x="232" y="210" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="219" y="253" width="63" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0v5qqi1_di" bpmnElement="ocr_processing_task">
+        <dc:Bounds x="460" y="60" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0zbb0vo_di" bpmnElement="send_email_task">
+        <dc:Bounds x="990" y="188" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ayxdjq_di" bpmnElement="classification_task">
+        <dc:Bounds x="710" y="420" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_07aa73y_di" bpmnElement="join_gateway" isMarkerVisible="true">
+        <dc:Bounds x="1205" y="203" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_023td7r_di" bpmnElement="end_event">
+        <dc:Bounds x="1392" y="210" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1381" y="253" width="59" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0gxn857_di" bpmnElement="use_ocr_gateway-start_document_entry_process_task">
+        <di:waypoint x="365" y="228" />
+        <di:waypoint x="460" y="228" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="388" y="210" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16kwpaw_di" bpmnElement="start_document_entry_process_task-classification_task">
+        <di:waypoint x="560" y="228" />
+        <di:waypoint x="635" y="228" />
+        <di:waypoint x="635" y="460" />
+        <di:waypoint x="710" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0tj2xmg_di" bpmnElement="start_event-use_ocr_gateway">
+        <di:waypoint x="268" y="228" />
+        <di:waypoint x="315" y="228" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0il3csc_di" bpmnElement="use_ocr_gateway-ocr_processing_task">
+        <di:waypoint x="340" y="203" />
+        <di:waypoint x="340" y="100" />
+        <di:waypoint x="460" y="100" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="347" y="138" width="17" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18an4gq_di" bpmnElement="ocr_processing_task-join_gateway">
+        <di:waypoint x="560" y="100" />
+        <di:waypoint x="1230" y="100" />
+        <di:waypoint x="1230" y="203" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0u9qy0u_di" bpmnElement="classification_task-send_email_task">
+        <di:waypoint x="810" y="460" />
+        <di:waypoint x="880" y="460" />
+        <di:waypoint x="880" y="228" />
+        <di:waypoint x="990" y="228" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="472" y="486" width="56" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qv06sl_di" bpmnElement="send_email_task-join_gateway">
+        <di:waypoint x="1090" y="228" />
+        <di:waypoint x="1205" y="228" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ozjg7z_di" bpmnElement="join_gateway-end_event">
+        <di:waypoint x="1255" y="228" />
+        <di:waypoint x="1392" y="228" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
